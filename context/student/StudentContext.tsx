@@ -10,12 +10,14 @@ import { Persona } from "@/interfaces/perona";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 
 interface StudentContextValue {
+  loading: boolean;
   students: Persona[];
   createStudent: (student: Persona) => Promise<void>;
   deleteStudent: (id: number) => Promise<void>;
   updateStudent: (student: Persona) => Promise<void>;
 }
 export const StudentContext = createContext<StudentContextValue>({
+  loading: true,
   students: [],
   createStudent: async () => {},
   deleteStudent: async () => {},
@@ -24,13 +26,15 @@ export const StudentContext = createContext<StudentContextValue>({
 
 export const StudentProvider = ({ children }: PropsWithChildren) => {
   const [students, setstudents] = useState<Persona[]>([]);
+  const [loading, setLoading] = useState(true);
 
   console.log("hola desde context");
   useEffect(() => {
     getStudentRequest()
       .then((resp) => setstudents(resp.data))
       .catch((err) => console.log(err));
-    console.log("hola sdsadsa");
+    // console.log("hola sdsadsa");
+    setLoading(false);
   }, []);
 
   const createStudent = async (student: Persona) => {
@@ -58,6 +62,7 @@ export const StudentProvider = ({ children }: PropsWithChildren) => {
   return (
     <StudentContext.Provider
       value={{
+        loading,
         students,
         createStudent,
         deleteStudent,

@@ -4,8 +4,14 @@ import ItemStudent from "./ItemStudent";
 import { Persona } from "@/interfaces/perona";
 
 const ListStudent = () => {
-  const { students } = useStudent();
-
+  const { students, loading } = useStudent();
+  if (loading) {
+    return (
+      <div className="mx-16 font-bold text-4xl text-violet-600 mb-7">
+        ...cargando
+      </div>
+    );
+  }
   return (
     <div>
       {students.map((pers: Persona) => (

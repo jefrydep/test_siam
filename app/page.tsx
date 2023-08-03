@@ -2,11 +2,19 @@
 import { Search } from "@/components/student/search/Search";
 import { StudentProvider } from "@/context/student/StudentContext";
 import FormStudent from "@/components/student/FormStudent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Titles from "@/components/student/Titles";
 import ListStudent from "@/components/student/ListStudent";
 export default function Home() {
   const [ShowModal, setShowModal] = useState(false);
+
+  // const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   // Simula una carga asincrónica
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 400);
+  // }, []);
   return (
     <main className=" ">
       {/* <Home /> */}
@@ -14,10 +22,10 @@ export default function Home() {
         {/* <Search /> */}
         {/* <ItemsStudent /> */}
         {/* <Button onClick={() => setShowModal(true)} /> */}
-        <Titles />
-
-        <ListStudent />
+        {/* {loading ? <div>...cargando</div> : <ListStudent />} */}
         <FormStudent />
+        <Titles />
+        <ListStudent />
       </StudentProvider>
     </main>
   );
