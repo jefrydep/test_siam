@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className=" ">
       {/* <Home /> */}
-      <NavBar />
+      
       <Search />
       <ItemsStudent />
     </main>
