@@ -1,16 +1,24 @@
-import ItemStudent from "@/components/student/ItemStudent";
-import ItemsStudent from "@/components/student/ItemsStudent";
-import { NavBar } from "@/components/navbar/NavBar";
+"use client";
 import { Search } from "@/components/student/search/Search";
-import Image from "next/image";
-
+import { StudentProvider } from "@/context/student/StudentContext";
+import FormStudent from "@/components/student/FormStudent";
+import { useState } from "react";
+import Titles from "@/components/student/Titles";
+import ListStudent from "@/components/student/ListStudent";
 export default function Home() {
+  const [ShowModal, setShowModal] = useState(false);
   return (
     <main className=" ">
       {/* <Home /> */}
-      
-      <Search />
-      <ItemsStudent />
+      <StudentProvider>
+        {/* <Search /> */}
+        {/* <ItemsStudent /> */}
+        {/* <Button onClick={() => setShowModal(true)} /> */}
+        <Titles />
+
+        <ListStudent />
+        <FormStudent />
+      </StudentProvider>
     </main>
   );
 }

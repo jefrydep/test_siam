@@ -1,25 +1,29 @@
-import { Persona } from "@/components/student/ItemsStudent";
+"use client";
 import {
   createStudentRequest,
   deleteStudentRequest,
   getStudentRequest,
+  updateStudentRequest,
 } from "@/helpers/students";
-import { StudentsResponse } from "@/interfaces/studentsResponse";
+import { Persona } from "@/interfaces/perona";
+// import { Persona } from "@/interfaces/studentsResponse";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 
 interface StudentContextValue {
-  students: StudentsResponse[];
+  students: Persona[];
   createStudent: (student: Persona) => Promise<void>;
   deleteStudent: (id: number) => Promise<void>;
+  updateStudent: (student: Persona) => Promise<void>;
 }
 export const StudentContext = createContext<StudentContextValue>({
   students: [],
   createStudent: async () => {},
   deleteStudent: async () => {},
+  updateStudent: async () => {},
 });
 
 export const StudentProvider = ({ children }: PropsWithChildren) => {
-  const [students, setstudents] = useState<StudentsResponse[]>([]);
+  const [students, setstudents] = useState<Persona[]>([]);
 
   console.log("hola desde context");
   useEffect(() => {
@@ -41,6 +45,15 @@ export const StudentProvider = ({ children }: PropsWithChildren) => {
       setstudents(students.filter((student) => student.ide_per !== id));
     }
   };
+  const updateStudent = async (student: Persona) => {
+    const response = await updateStudentRequest(student);
+    const data = await response.json();
+    setstudents(
+      students.map((st) =>
+        st.ide_per === student.ide_per ? { ...st, ...data } : st
+      )
+    );
+  };
 
   return (
     <StudentContext.Provider
@@ -48,6 +61,7 @@ export const StudentProvider = ({ children }: PropsWithChildren) => {
         students,
         createStudent,
         deleteStudent,
+        updateStudent,
       }}
     >
       {children}

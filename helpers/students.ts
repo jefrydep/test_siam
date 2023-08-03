@@ -1,4 +1,5 @@
-import { Persona } from "@/components/student/ItemsStudent";
+import { Persona } from "@/interfaces/perona";
+// import { StudentsResponse } from "@/interfaces/studentsResponse";
 import axios from "axios";
 
 const API = "http://localhost:3000";
@@ -39,3 +40,12 @@ export const createStudentRequest = async (student: Persona) => {
     },
   });
 };
+
+export const updateStudentRequest = async (student: Persona) =>
+  fetch(`${API}/personas/`, {
+    method: "PATCH",
+    body: JSON.stringify(student),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
